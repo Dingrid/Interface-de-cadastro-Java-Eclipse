@@ -1,0 +1,438 @@
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu; //o conceito da barra
+import javax.swing.JMenuBar; //a barra em si
+import javax.swing.JMenuItem; //os itens da barra
+
+
+public class menu extends JFrame{
+	
+	private JMenuItem menuItemExcluir= new JMenuItem("Excluir");
+	private JMenuItem menuItemCadastrar= new JMenuItem("Cadastrar");
+	private JMenuItem menuItemFechar= new JMenuItem("Fechar");
+	private JMenuItem menuItemPesquisar= new JMenuItem("Pesquisar");
+	
+	private JMenuItem menuItemAtualizar= new JMenuItem("Atualizar");
+	
+	private JMenu menuArquivo= new JMenu("Arquivo");
+	
+	private JMenu menuEditar= new JMenu("Editar");
+	
+	private JMenuBar menuBar = new JMenuBar();
+	
+	public menu()
+	{
+		super("MENU");
+		
+		//adiciona os JMEnuItem no JMenu
+		menuArquivo.add(menuItemCadastrar);
+		menuArquivo.add(menuItemPesquisar);
+		menuArquivo.add(menuItemExcluir);
+		menuArquivo.add(menuItemFechar);
+		
+		menuEditar.add(menuItemAtualizar);
+
+		//adiciona o JMenu no JMenuBar
+		menuBar.add(menuArquivo);
+		menuBar.add(menuEditar);
+		
+		this.setJMenuBar(menuBar);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(310,200);
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
+		
+		
+		menuItemExcluir.addActionListener(new ActionListener() { //se clicarem em excluir
+			public void actionPerformed(ActionEvent e) {
+				Excluir excluir= new Excluir();
+				excluir.setVisible(true);	} });
+		
+		menuItemAtualizar.addActionListener(new ActionListener() { //se clicarem em atualizar
+			public void actionPerformed(ActionEvent e) {
+				Atualizar atualizar= new Atualizar();
+				atualizar.setVisible(true);	} });
+		
+		menuItemFechar.addActionListener(new ActionListener() { //se clicarem em Fechar
+			public void actionPerformed(ActionEvent e) {
+				System.exit(getDefaultCloseOperation());	} });
+		
+		menuItemPesquisar.addActionListener(new ActionListener() { //se clicarem em Pesquisar
+			public void actionPerformed(ActionEvent e) {
+				Pesquisar pesquisar= new Pesquisar();
+				pesquisar.setVisible(true);	} });
+		
+		menuItemCadastrar.addActionListener(new ActionListener() { //se clicarem em Cadastrar
+			public void actionPerformed(ActionEvent e) {
+				Cadastrar cadastrar= new Cadastrar();
+				cadastrar.setVisible(true);			
+				} });
+
+	}
+	
+	public static void main(String[]args)
+	{
+		menu Menu= new menu();
+	}
+}
+
+
+//PESQUISAR
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
+public class Pesquisar extends JFrame {
+	//MENU
+		private JMenuItem menuItemExcluir= new JMenuItem("Excluir");
+		private JMenuItem menuItemCadastrar= new JMenuItem("Cadastrar");
+		private JMenuItem menuItemFechar= new JMenuItem("Fechar");
+		private JMenuItem menuItemPesquisar= new JMenuItem("Pesquisar");
+		
+		private JMenuItem menuItemAtualizar= new JMenuItem("Atualizar");
+		
+		private JMenu menuArquivo= new JMenu("Arquivo");
+		
+		private JMenu menuEditar= new JMenu("Editar");
+		
+		private JMenuBar menuBar = new JMenuBar();
+		
+		//PESQUISAR
+	String[] coluna= {"Nome","Endereço", "Bairro","CEP", "Cidade", "Estado", "Telefone", "Celular", "RG", "CPF"};
+	String [][] dados= {{"Eduardo Jorge","Rua Pedro Amorim,54", "Jardim Camargo Novo","08888-985",  "Salvador", "Bahia","(55)78945612","(55)456985214","444.222.999-9","582.698.158-98"}
+	, {"Gustavo Nunes","Rua João Paulo Barbosa, s/n","Distrito de Ameixas","55658-970", "Caetité", "Bahia","(81) 3679-4292","(81) 98347-0301","26.131.472-5","663.659.424-19"},
+		{"Tarcísio Araújo","Rua Oscar Santana, s/n","Barra","48170-971", "Mutuípe", "Bahia","(75) 3528-9814","(75) 98476-9960","47.591.017-5","300.893.725-06"},
+	{"Rafael de Freitas","Rua Parneira de Palmas, s/n","Lapa","48170-971","Campinas", "São Paulo","(11) 3528-9814","(11) 98519-3490","43.352.048-6","019.673.535-14"},
+		{"Alessandra Antônia Luana Porto","Avenida Coronel Macario Subtil de Oliveira 788","Centro","78785-970","Alto Taquari","Mato Grosso","(66) 3548-4652","(66) 99368-0698","16.970.902-4","103.929.921-08"}
+	,{"Benedita Priscila Malu da Cruz","Avenida Um, s/n","Central","68913-970","Bailique","Amapá","(96) 3895-0617","(96) 98206-3455","26.550.097-7","432.982.412-45"}};
+	
+	private JTable listEstados = new JTable(dados, coluna);
+	private JScrollPane scrollpane = new JScrollPane(listEstados);
+	
+	public Pesquisar()
+	{
+		super("Pesquisar");
+		
+		//adiciona os JMEnuItem no JMenu
+				menuArquivo.add(menuItemCadastrar);
+				menuArquivo.add(menuItemPesquisar);
+				menuArquivo.add(menuItemExcluir);
+				menuArquivo.add(menuItemFechar);
+				
+				menuEditar.add(menuItemAtualizar);
+
+				//adiciona o JMenu no JMenuBar
+				menuBar.add(menuArquivo);
+				menuBar.add(menuEditar);
+				
+				this.setJMenuBar(menuBar);
+				
+				menuItemExcluir.addActionListener(new ActionListener() { //se clicarem em excluir
+					public void actionPerformed(ActionEvent e) {
+						Excluir excluir= new Excluir();
+						excluir.setVisible(true);	} });
+				
+				menuItemAtualizar.addActionListener(new ActionListener() { //se clicarem em atualizar
+					public void actionPerformed(ActionEvent e) {
+						Atualizar atualizar= new Atualizar();
+						atualizar.setVisible(true);	} });
+				
+				menuItemFechar.addActionListener(new ActionListener() { //se clicarem em Fechar
+					public void actionPerformed(ActionEvent e) {
+						System.exit(getDefaultCloseOperation());	} });
+				
+				menuItemPesquisar.addActionListener(new ActionListener() { //se clicarem em Pesquisar
+					public void actionPerformed(ActionEvent e) {
+						Pesquisar pesquisar= new Pesquisar();
+						pesquisar.setVisible(true);	} });
+				
+				menuItemCadastrar.addActionListener(new ActionListener() { //se clicarem em Cadastrar
+					public void actionPerformed(ActionEvent e) {
+						Cadastrar cadastrar= new Cadastrar();
+						cadastrar.setVisible(true);			
+						} });
+
+		
+		Container paine= this.getContentPane();
+		paine.add(scrollpane);
+		scrollpane.setBounds(0,0,800,500);
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(1350,500);
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Pesquisar pesquisar= new Pesquisar();
+
+	}
+
+}
+
+
+//CADASTRAR
+import javax.swing.JFrame; 
+import javax.swing.JMenu; //o conceito da barra
+import javax.swing.JMenuBar; //a barra em si
+import javax.swing.JMenuItem; //os itens da barra
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+public class Cadastrar extends JFrame {
+	//MENU
+			private JMenuItem menuItemExcluir= new JMenuItem("Excluir");
+			private JMenuItem menuItemCadastrar= new JMenuItem("Cadastrar");
+			private JMenuItem menuItemFechar= new JMenuItem("Fechar");
+			private JMenuItem menuItemPesquisar= new JMenuItem("Pesquisar");
+			
+			private JMenuItem menuItemAtualizar= new JMenuItem("Atualizar");
+			
+			private JMenu menuArquivo= new JMenu("Arquivo");
+			
+			private JMenu menuEditar= new JMenu("Editar");
+			
+			private JMenuBar menuBar = new JMenuBar();
+	public Cadastrar()
+	{
+		super("Cadastro PF"); //nome na tela
+		//adiciona os JMEnuItem no JMenu
+		menuArquivo.add(menuItemCadastrar);
+		menuArquivo.add(menuItemPesquisar);
+		menuArquivo.add(menuItemExcluir);
+		menuArquivo.add(menuItemFechar);
+		
+		menuEditar.add(menuItemAtualizar);
+
+		//adiciona o JMenu no JMenuBar
+		menuBar.add(menuArquivo);
+		menuBar.add(menuEditar);
+		
+		this.setJMenuBar(menuBar);
+		
+		menuItemExcluir.addActionListener(new ActionListener() { //se clicarem em excluir
+			public void actionPerformed(ActionEvent e) {
+				Excluir excluir= new Excluir();
+				excluir.setVisible(true);	} });
+		
+		menuItemAtualizar.addActionListener(new ActionListener() { //se clicarem em atualizar
+			public void actionPerformed(ActionEvent e) {
+				Atualizar atualizar= new Atualizar();
+				atualizar.setVisible(true);	} });
+		
+		menuItemFechar.addActionListener(new ActionListener() { //se clicarem em Fechar
+			public void actionPerformed(ActionEvent e) {
+				System.exit(getDefaultCloseOperation());	} });
+		
+		menuItemPesquisar.addActionListener(new ActionListener() { //se clicarem em Pesquisar
+			public void actionPerformed(ActionEvent e) {
+				Pesquisar pesquisar= new Pesquisar();
+				pesquisar.setVisible(true);	} });
+		
+		menuItemCadastrar.addActionListener(new ActionListener() { //se clicarem em Cadastrar
+			public void actionPerformed(ActionEvent e) {
+				Cadastrar cadastrar= new Cadastrar();
+				cadastrar.setVisible(true);			
+				} });
+		
+		//aqui você instancia os objetos do JFrame para depois colocá-los na tela
+				JTextField txtNome = new JTextField();
+				JLabel nome = new JLabel("NOME: ");
+				
+				JTextField txtEnd = new JTextField();
+				JLabel end = new JLabel("ENDEREÇO: ");
+				
+				JTextField txtBairro = new JTextField();
+				JLabel bairro = new JLabel("BAIRRO: ");
+				
+				JFormattedTextField txtCep = null; //txt formatado
+				JLabel cep = new JLabel("CEP: ");
+				
+				JTextField txtCidade = new JTextField();
+				JLabel cidade = new JLabel("CIDADE: ");	
+				
+				JLabel est = new JLabel("ESTADO: ");
+				JComboBox cmbEst = new JComboBox(); //aparecer opcoes dos estados
+				
+				JFormattedTextField txtTel = null;
+				JLabel tel = new JLabel("TELEFONE: ");
+				
+				JFormattedTextField txtCel = null;
+				JLabel cel = new JLabel("CELULAR: ");
+				
+				JFormattedTextField txtRg = null;
+				JLabel rg = new JLabel("RG: ");
+				
+				JFormattedTextField txtCpf = null;
+				JLabel cpf = new JLabel("CPF: ");
+				
+				JButton btnSalvar = new JButton("Salvar");
+				
+				JButton btnImprimir = new JButton("Imprimir");
+				
+				JLabel sexo = new JLabel("SEXO: ");
+				
+				JRadioButton[] rdbsexo = new JRadioButton[2]; //botão para opçoes
+				ButtonGroup grupo = new ButtonGroup();{ //group impede marcar mais de uma opçao no mesmo objeto
+				
+				rdbsexo[0] = new JRadioButton("Feminino");
+				rdbsexo[1] = new JRadioButton("Masculino");} //fechar chave nos groups
+				
+				MaskFormatter formatTel = null; //add mascara
+				MaskFormatter formatCel = null;
+				MaskFormatter formatCpf = null;
+				MaskFormatter formatCep = null;
+				MaskFormatter formatRg = null;
+				pessoaFisica pessoaFisica = new pessoaFisica();
+
+					
+					
+					Container paine = this.getContentPane();
+					
+					//adiciona os itens na tela
+					paine.add(nome);
+					paine.add(txtNome);	
+					nome.setBounds(10, 15, 45, 30);
+					txtNome.setBounds(90, 15, 225, 30);
+					
+					paine.add(end);
+					paine.add(txtEnd);	
+					end.setBounds(10, 50, 70, 30);
+					txtEnd.setBounds(90, 50, 225, 30);
+							
+					try { //add mascara antes de tudo!!!
+						formatCep = new MaskFormatter("#####-###"); //a mascara
+						txtCep = new JFormattedTextField(formatCep);
+					} catch (Exception ex) { //exibir o erro
+						ex.printStackTrace();
+					}
+					paine.add(cep);
+					paine.add(txtCep);			
+					cep.setBounds(335, 70, 40, 30);
+					txtCep.setBounds(400, 70, 120, 30);
+					
+					
+					paine.add(cidade);
+					paine.add(txtCidade);	
+					cidade.setBounds(10, 85, 70, 30);
+					txtCidade.setBounds(90, 85, 225, 30);
+					
+					paine.add(est);
+					est.setBounds(335, 105, 70, 30);
+					paine.add(cmbEst);
+					cmbEst.setBounds(400, 105, 70, 30);
+					cmbEst.addItem("AC");		cmbEst.addItem("AL");
+					cmbEst.addItem("AP");		cmbEst.addItem("AM");
+					cmbEst.addItem("BA");		cmbEst.addItem("CE");
+					cmbEst.addItem("DF");		cmbEst.addItem("ES");
+					cmbEst.addItem("GO");		cmbEst.addItem("MA");
+					cmbEst.addItem("MT");		cmbEst.addItem("MS");
+					cmbEst.addItem("MG");		cmbEst.addItem("PA");
+					cmbEst.addItem("PB");		cmbEst.addItem("PR");
+					cmbEst.addItem("PE");		cmbEst.addItem("PI");
+					cmbEst.addItem("RJ");		cmbEst.addItem("RN");
+					cmbEst.addItem("RS");		cmbEst.addItem("RO");
+					cmbEst.addItem("RR");		cmbEst.addItem("SC");
+					cmbEst.addItem("SP");		cmbEst.addItem("SE");
+					cmbEst.addItem("TO");		
+					
+					paine.add(bairro);
+					paine.add(txtBairro);	
+					bairro.setBounds(10, 120, 70, 30);
+					txtBairro.setBounds(90, 120, 225, 30);
+							
+					//adiciona a máscara
+					try {
+						formatTel = new MaskFormatter("(##)####-####"); //a mascara
+						txtTel = new JFormattedTextField(formatTel);
+					} catch (Exception ext) { //exibir o erro
+						ext.printStackTrace();
+					}
+					paine.add(tel);
+					paine.add(txtTel);	
+					tel.setBounds(10, 155, 70, 30);
+					txtTel.setBounds(90, 155, 155, 30);		
+					
+					try {
+						formatCel = new MaskFormatter("(##)#####-####"); //a mascara
+						txtCel = new JFormattedTextField(formatCel);
+					} catch (Exception exc) { //exibir o erro
+						exc.printStackTrace();
+					}
+					paine.add(cel);
+					paine.add(txtCel);	
+					cel.setBounds(335, 155, 70, 30);
+					txtCel.setBounds(400, 155, 155, 30);
+					
+					
+					paine.add(sexo);			
+					sexo.setBounds(335, 15, 55, 30);		
+					grupo.add(rdbsexo[0]); //grupo para o sexo
+					grupo.add(rdbsexo[1]);
+					paine.add(rdbsexo[0]); //opção para o sexo
+					rdbsexo[0].setBounds(375, 15, 85, 30);
+					paine.add(rdbsexo[1]);
+					rdbsexo[1].setBounds(455, 15, 90, 30);
+							
+					try {
+						formatRg = new MaskFormatter("##.###.###-A"); //a mascara
+						txtRg = new JFormattedTextField(formatRg);
+					} catch (Exception exr) { //exibir o erro
+						exr.printStackTrace();
+					}
+					paine.add(rg);
+					paine.add(txtRg);	
+					rg.setBounds(10, 190, 55, 30);
+					txtRg.setBounds(90, 190, 155, 30);		
+					
+					try {
+						formatCpf = new MaskFormatter("###.###.###-##"); //a mascara
+						txtCpf = new JFormattedTextField(formatCpf);
+					} catch (Exception exf) { //exibir o erro
+						exf.printStackTrace();
+					}
+					
+
+					paine.add(cpf);
+					paine.add(txtCpf);	
+					cpf.setBounds(335, 190, 70, 30);
+					txtCpf.setBounds(400, 190, 155, 30);
+
+					this.setLayout(null);
+					this.setVisible(true);
+					this.setSize(600, 330); //tamanho da tela
+					this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					this.setLocationRelativeTo(null);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Cadastrar cadastrar= new Cadastrar();
+
+	}
+
+}
+
+
